@@ -11,7 +11,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     [SerializeField] private float _moveSpeed;
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         _rigidbody.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, _rigidbody.velocity.y, _joystick.Vertical * _moveSpeed);
 

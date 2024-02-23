@@ -1,20 +1,21 @@
+using System;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
+    public Vector3 _offset;
     public Transform target;
+    private float smoothTime;
+    private Vector3 _currentVelocity = Vector3.zero;
 
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
-
-    void FixedUpdate()
+    private void Awake()
     {
-        Vector3 desiredPostion = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPostion, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPosition;
-
-        transform.LookAt(target);
+       // _offset = transform.position = target.position;
     }
 
+    private void LateUpdate()
+    {
+        Vector3 targetPostition = target.position + _offset;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPostition, ref _currentVelocity, smoothTime);
+    }
 }
